@@ -3,6 +3,7 @@ package com.mysite.sbb;
 import jakarta.persistence.*;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
 public class Question {
@@ -17,4 +18,7 @@ public class Question {
 
     @Column(columnDefinition = "TEXT")
     private String content;
+
+    @OneToMany(mappedBy = "question", cascade = CascadeType.REMOVE)
+    private List<Answer> answer;
 }
