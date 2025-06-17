@@ -44,5 +44,7 @@ public class TestInitData {
         q2.setCreateDate(LocalDateTime.now());
         questionRepository.save(q2); // 두번째 질문 저장
     }
+
+
 }
 
