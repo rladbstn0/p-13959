@@ -4,6 +4,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -99,4 +100,12 @@ class PostRepositoryTest {
         answerRepository.save(answer);
     }
 
+    @Test
+    @DisplayName("답변 생성 v2")
+    @Rollback(false)
+    void t9() {
+        Question question = questionRepository.findById(2).get();
+        question.addAnswer("네 자동으로 생성됩니다.");
+        assertThat(question.getAnswers()).hasSize(1);
+    }
 }
