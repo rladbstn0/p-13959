@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -12,6 +13,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 @ActiveProfiles("test")
 @SpringBootTest
+@Transactional
 class PostRepositoryTest {
     @Autowired
     private QuestionRepository questionRepository;
@@ -60,7 +62,7 @@ class PostRepositoryTest {
 
     @Test
     @DisplayName("수정")
-    void t6(){
+    void t0() {
         Question question = questionRepository.findById(1).get();
         assertThat(question).isNotNull();
 
@@ -70,4 +72,13 @@ class PostRepositoryTest {
         Question foundQuestion = questionRepository.findBySubject("수정된 제목").get();
         assertThat(foundQuestion).isNotNull();
     }
-}
+
+    @Test
+    @DisplayName("삭제")
+    void t7() {
+        assertThat(questionRepository.count()).isEqualTo(2);
+
+        Question question = questionRepository.findById(1).get();
+        questionRepository.delete(question);
+        assertThat(questionRepository.count()).isEqualTo(1);
+    }}
