@@ -57,4 +57,17 @@ class PostRepositoryTest {
         Question question = questions.get(0);
         assertThat(question.getSubject()).isEqualTo("sbb가 무엇인가요?");
     }
+
+    @Test
+    @DisplayName("수정")
+    void t6(){
+        Question question = questionRepository.findById(1).get();
+        assertThat(question).isNotNull();
+
+        question.setSubject("수정된 제목");
+        this.questionRepository.save(question);
+
+        Question foundQuestion = questionRepository.findBySubject("수정된 제목").get();
+        assertThat(foundQuestion).isNotNull();
+    }
 }
